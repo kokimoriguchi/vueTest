@@ -1,0 +1,12 @@
+# vueTest/docker-compose.yml
+version: '3'
+services:
+  vue-app:
+    container_name: vue-app
+    build:
+      context: .
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./vueTodo:/app
+      - /app/node_modules
