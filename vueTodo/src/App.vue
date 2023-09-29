@@ -1,47 +1,183 @@
+<template>
+  <header class="header">
+    <img src="/images/logo.svg" alt="vueロゴ" />
+    <h1>Vue.js ハンズオン</h1>
+  </header>
+  <div>商品数：{{ stockQuantity() }}</div>
+  <div>現在時刻：{{ getDate() }}</div>
+  <main class="main">
+    <template v-for="item in items" :key="item.id">
+      <!-- item.selectedがtrueの場合はselected-itemクラスを付与するという意味のv-bind:classの省略記法です。 -->
+      <div
+        v-if="!item.soldOut"
+        :class="{ 'selected-item': item.selected }"
+        @click="item.selected = !item.selected"
+        @keyup.enter="item.selected = !item.selected"
+        tabindex="0"
+        class="item"
+      >
+        <Card
+          :id="item.id"
+          :image="item.image"
+          :name="item.name"
+          :description="item.description"
+          :price="item.price"
+          @sold-out="changeSoldOut"
+        />
+      </div>
+      <div v-else>
+        売り切れです<button type="button" @click="stockItem(item)">入荷</button>
+      </div>
+    </template>
+  </main>
+</template>
+
 <script setup>
-  import { ref } from 'vue'
+import { ref } from "vue";
+import Card from "./components/Card.vue";
+const items = ref([
+  {
+    id: 1,
+    name: "アボカドディップバケット",
+    description:
+      "刻んだ野菜をアボカドと混ぜてディップに。こんがり焼いたバゲットとお召し上がりください。",
+    price: 2500,
+    image: "/images/item1.jpg",
+    soldOut: true,
+    selected: false,
+  },
+  {
+    id: 2,
+    name: "あの日夢見たホットケーキ",
+    description:
+      "あの日夢見たホットケーキ。ふわふわの生地に、たっぷりのメープルシロップをかけてお召し上がりください。",
+    price: 30000,
+    image: "/images/item2.jpg",
+    soldOut: false,
+    selected: false,
+  },
+  {
+    id: 3,
+    name: "HOP WATER",
+    description:
+      "ホップの香りが楽しめる、ノンアルコールビール。おつまみと一緒にお召し上がりください。",
+    price: 2000,
+    image: "/images/item3.jpg",
+    soldOut: false,
+    selected: false,
+  },
+  {
+    id: 4,
+    name: "チーズフレンチフライ",
+    description:
+      "チーズをたっぷりかけたフレンチフライ。おつまみと一緒にお召し上がりください。",
+    price: 4800,
+    image: "/images/item4.jpg",
+    soldOut: false,
+    selected: false,
+  },
+]);
 
-  let id = 0
-  const newTodoRef = ref('')
-  const todos = ref([
-    {
-      id: id++,
-      text: 'Learn Vue.js',
-    },
-    {
-      id: id++,
-      text: 'Learn React',
-    },
-    {
-      id: id++,
-      text: 'Learn Angular',
-    }
-  ])
+function stockQuantity() {
+  return items.value.filter((item) => item.soldOut === false).length;
+}
 
-  function removeTodo(todo) {
-    todos.value = todos.value.filter((t) => t !== todo)
-  }
+function stockItem(item) {
+  item.soldOut = false;
+}
 
-  function addTodo() {
-    const newTodo = newTodoRef.value.trim()
-    if (newTodo !== '') {
-      const todo = { id: id++, text: newTodo }
-      todos.value.push(todo)
-      newTodoRef.value = ''
-    }
-  }
+function getDate() {
+  return new Date().toLocaleString();
+}
+function changeSoldOut(id) {
+  const pickElm = items.value.find((item) => item.id == id);
+  pickElm.soldOut = true;
+}
 </script>
 
-<template>
-  <form @submit.prevent="addTodo">
-    <input v-model="newTodoRef">
-    <button>Add Todo</button>
-    <p>{{ newTodoRef }}</p>
-  </form>
-  <ul>
-    <li v-for="todo in todos" :key="todo.id">
-      {{ todo.text }}
-      <button @click="removeTodo(todo)">Remove</button>
-    </li>
-  </ul>
-</template>
+<style>
+body {
+  font-family: sans-serif;
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#app {
+  width: 90%;
+  margin: 0 5%;
+  color: #242424;
+}
+
+.header {
+  display: flex;
+  align-content: center;
+  align-items: center;
+  margin-top: 40px;
+  margin-bottom: 40px;
+}
+
+.header > img {
+  width: 100px;
+  height: 100px;
+  margin-right: 20px;
+}
+
+.header > h1 {
+  font-size: 80px;
+  font-weight: bold;
+  line-height: 80px;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.main {
+  display: grid;
+  grid-template-columns: 3fr 3fr 3fr 3fr;
+  column-gap: 24px;
+  row-gap: 24px;
+}
+
+.item {
+  padding: 10px;
+  cursor: pointer;
+}
+
+.item:hover {
+  transition: 0.2s transform ease-out;
+  transform: scale(1.05);
+}
+
+.item > div.thumbnail > img {
+  width: 100%;
+  height: calc(100%);
+  object-fit: cover;
+}
+
+.item > div.description {
+  text-align: left;
+  margin-top: 20px;
+}
+
+.item > div.description > p {
+  margin-top: 0px;
+  margin-bottom: 0px;
+  font-size: 18px;
+  line-height: 25px;
+}
+
+.item > div.description > span {
+  display: block;
+  margin-top: 10px;
+  font-size: 20px;
+}
+
+.item > div.description > span > .price {
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.selected-item {
+  background-color: #e3f2fd;
+}
+</style>
