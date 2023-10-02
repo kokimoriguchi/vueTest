@@ -21,7 +21,7 @@
         </tr>
       </thead>
       <tbody class="table">
-        <tr v-for="todo in todos" :key="todo.id">
+        <tr v-for="(todo, index) in todos" :key="todo.id">
           <td class="id">{{ todo.id }}</td>
           <td class="todo-list" :class="{ completed: todo.state }">
             {{ todo.todo }}
@@ -31,7 +31,7 @@
             <button
               type="button"
               class="button delete-button"
-              @click="deleteTodo"
+              @click="deleteTodo(index)"
             >
               delate
             </button>
@@ -48,8 +48,8 @@ import { useRouter } from "vue-router";
 
 const router = useRouter();
 const todos = ref([]);
-
 const newTodoText = ref("");
+
 function addTodo() {
   if (newTodoText.value === "") {
     alert("文字を入力してください");
@@ -63,8 +63,8 @@ function addTodo() {
   newTodoText.value = "";
 }
 
-function deleteTodo() {
-  todos.value.pop();
+function deleteTodo(index) {
+  todos.value.splice(index, 1);
 }
 
 function backHome() {

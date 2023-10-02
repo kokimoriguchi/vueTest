@@ -106,105 +106,90 @@ const items = ref([
 ]);
 </script>
 
-<style>
+<style scoped>
 body {
-  font-family: sans-serif;
+  font-family: "Arial", sans-serif;
   margin: 0;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-#app {
-  width: 90%;
-  margin: 0 5%;
-  color: #242424;
-}
-
-.header {
-  display: flex;
-  align-content: center;
-  align-items: center;
-  margin-top: 40px;
-  margin-bottom: 40px;
-}
-
-.header > img {
-  width: 100px;
-  height: 100px;
-  margin-right: 20px;
-}
-
-.header > h1 {
-  font-size: 80px;
-  font-weight: bold;
-  line-height: 80px;
-  margin-top: 0;
-  margin-bottom: 0;
-}
-
-.main {
-  display: grid;
-  grid-template-columns: 3fr 3fr 3fr 3fr;
-  column-gap: 24px;
-  row-gap: 24px;
-}
-
-.item {
-  padding: 10px;
-  cursor: pointer;
-}
-
-.item:hover {
-  transition: 0.2s transform ease-out;
-  transform: scale(1.05);
-}
-
-.item > div.thumbnail > img {
-  width: 100%;
-  height: calc(100%);
-  object-fit: cover;
-}
-
-.item > div.description {
-  text-align: left;
-  margin-top: 20px;
-}
-
-.item > div.description > p {
-  margin-top: 0px;
-  margin-bottom: 0px;
-  font-size: 18px;
-  line-height: 25px;
-}
-
-.item > div.description > span {
-  display: block;
-  margin-top: 10px;
-  font-size: 20px;
-}
-
-.item > div.description > span > .price {
-  font-size: 28px;
-  font-weight: bold;
-}
-
-.selected-item {
-  background-color: #e3f2fd;
-}
-
-.back-button {
-  margin-top: 20px;
-  margin-bottom: 20px;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  background-color: #fff;
-  cursor: pointer;
+  background-color: #f8f8f8;
 }
 
 .product-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  background-color: #ffffff;
+  padding: 20px;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+}
+
+.product-header > div {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+.back-button {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.back-button:hover {
+  background-color: #0056b3;
+}
+
+.main {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 20px;
+  padding: 0 20px;
+}
+
+.item,
+div[v-else] {
+  background-color: white;
+  border: 1px solid #e1e1e1;
+  border-radius: 10px;
+  overflow: hidden;
+  transition: box-shadow 0.3s ease;
+}
+
+.item:hover {
+  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.item[v-if] {
+  cursor: pointer;
+}
+
+div[v-else] {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 150px;
+}
+
+.selected-item {
+  border-color: #007bff;
+}
+
+button[type="button"] {
+  margin: 10px;
+  padding: 5px 15px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button[type="button"]:hover {
+  background-color: #218838;
 }
 </style>

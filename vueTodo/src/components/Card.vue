@@ -46,7 +46,7 @@ defineProps({
   <button type="button" @click="() => emit('sold-out', id)">売り切れ</button>
 </template>
 
-<style>
+<style scoped>
 .item > div.thumbnail > img {
   width: 100%;
   height: calc(100%);

@@ -1,28 +1,27 @@
 <template>
   <div class="container">
-    <button class="back-button" type="button" @click="MoveTodo">Todo</button>
-    <button class="back-button" type="button" @click="MoveProduct">
+    <button class="back-button" type="button" @click="Move('/Todo')">
+      Todo
+    </button>
+    <button class="back-button" type="button" @click="Move('/ProductsIndex')">
       Products
     </button>
-    <button class="back-button" type="button" @click="Logout">Logout</button>
+    <button class="back-button" type="button" @click="Move('/Test')">
+      Test
+    </button>
+    <button class="back-button" type="button" @click="Move('/VuexTest')">
+      VuexTest
+    </button>
+    <button class="back-button" type="button" @click="Move('/')">Logout</button>
   </div>
 </template>
 
 <script setup>
 import { useRouter } from "vue-router";
-
 const router = useRouter();
 
-function Logout() {
-  router.push("/");
-}
-
-function MoveTodo() {
-  router.push("/Todo");
-}
-
-function MoveProduct() {
-  router.push("/ProductsIndex");
+function Move(path) {
+  router.push(path);
 }
 </script>
 
