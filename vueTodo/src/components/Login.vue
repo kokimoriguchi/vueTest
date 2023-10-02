@@ -32,7 +32,7 @@ const router = useRouter();
 
 function login() {
   auth.login(id.value, password.value);
-  router.push("/ProductsIndex");
+  router.push("/Home");
 }
 
 const auth = {
