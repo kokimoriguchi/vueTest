@@ -1,7 +1,12 @@
 <template>
   <Header></Header>
-  <div>商品数：{{ stockQuantity() }}</div>
-  <div>現在時刻：{{ getDate() }}</div>
+  <div class="product-header">
+    <div>
+      <div>商品数：{{ stockQuantity() }}</div>
+      <div>現在時刻：{{ getDate() }}</div>
+    </div>
+    <button class="back-button" type="button" @click="back">戻る</button>
+  </div>
   <main class="main">
     <template v-for="item in items" :key="item.id">
       <!-- item.selectedがtrueの場合はselected-itemクラスを付与するという意味のv-bind:classの省略記法です。 -->
@@ -33,6 +38,30 @@
 import { ref } from "vue";
 import Card from "./Card.vue";
 import Header from "./Header.vue";
+import { useRouter } from "vue-router";
+
+function stockQuantity() {
+  return items.value.filter((item) => item.soldOut === false).length;
+}
+
+function stockItem(item) {
+  item.soldOut = false;
+}
+
+function getDate() {
+  return new Date().toLocaleString();
+}
+
+function changeSoldOut(id) {
+  const pickElm = items.value.find((item) => item.id == id);
+  pickElm.soldOut = true;
+}
+
+function back() {
+  router.back("/Home");
+}
+
+const router = useRouter();
 const items = ref([
   {
     id: 1,
@@ -75,22 +104,6 @@ const items = ref([
     selected: false,
   },
 ]);
-
-function stockQuantity() {
-  return items.value.filter((item) => item.soldOut === false).length;
-}
-
-function stockItem(item) {
-  item.soldOut = false;
-}
-
-function getDate() {
-  return new Date().toLocaleString();
-}
-function changeSoldOut(id) {
-  const pickElm = items.value.find((item) => item.id == id);
-  pickElm.soldOut = true;
-}
 </script>
 
 <style>
@@ -177,5 +190,21 @@ body {
 
 .selected-item {
   background-color: #e3f2fd;
+}
+
+.back-button {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #fff;
+  cursor: pointer;
+}
+
+.product-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 </style>

@@ -3,8 +3,7 @@ FROM node:lts
 
 WORKDIR /app
 
-COPY vueTodo/ ./
+COPY ./vueTodo /app
 RUN npm install
 
-COPY vueTodo/ .
 CMD ["npm", "run", "dev"]

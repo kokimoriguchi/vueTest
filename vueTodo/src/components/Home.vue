@@ -1,4 +1,7 @@
 <template>
-  <h1>HOME</h1>
-  <a href="/ProductsIndex">Products</a>
+  <Login />
 </template>
+
+<script setup>
+import Login from "./Login.vue";
+</script>
