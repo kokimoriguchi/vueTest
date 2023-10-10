@@ -5,6 +5,7 @@ import LoginHome from "../components/LoginHome.vue";
 import Todo from "../components/Todo.vue";
 import Test from "../components/Test.vue";
 import VuexTest from "../components/VuexTest.vue";
+import TaskIndex from "../components/TaskIndex.vue";
 
 const routes = [
   { path: "/", name: "LoginHome", component: LoginHome },
@@ -13,6 +14,7 @@ const routes = [
   { path: "/Todo", name: "Todo", component: Todo },
   { path: "/Test", name: "Test", component: Test },
   { path: "/VuexTest", name: "VuexTest", component: VuexTest },
+  { path: "/TaskIndex", name: "TaskIndex", component: TaskIndex },
 ];
 
 const router = createRouter({

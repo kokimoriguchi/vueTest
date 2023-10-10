@@ -12,6 +12,9 @@
     <button class="back-button" type="button" @click="Move('/VuexTest')">
       VuexTest
     </button>
+    <button class="back-button" type="button" @click="Move('/TaskIndex')">
+      TaskIndex
+    </button>
     <button class="back-button" type="button" @click="Move('/')">Logout</button>
   </div>
 </template>
